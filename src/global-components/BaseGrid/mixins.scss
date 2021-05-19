@@ -1,0 +1,21 @@
+$xl: 1200px !default;
+$xxl: 1600px !default;
+
+$sizeMap: (
+  'xl': (
+    min-width: $xl
+  ),
+  'xxl': (
+    min-width: $xxl
+  )
+);
+
+@mixin res($size, $map: $sizeMap) {
+  @if map-has-key($map, $size) {
+    @media only screen and #{inspect(map-get($map, $size))} {
+      @content;
+    }
+  } @else {
+    @warn 'undefined size in scss res mixin'
+  }
+}
