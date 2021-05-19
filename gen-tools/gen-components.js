@@ -8,7 +8,7 @@ import { upperFirst, camelCase, forEach } from 'lodash'
 
 const requireComponent = require.context(
   // 此处只能传入字面量路径
-  './global-components/',
+  './src/global-components/',
   true,
   /((Base[A-Z]\w*)|(index)).(vue|js(x)?)/
 )

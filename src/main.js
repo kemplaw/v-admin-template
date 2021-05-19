@@ -15,7 +15,7 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
-import './gen-components' // 自动化注册组件
+import '../gen-tools/gen-components' // 自动化注册组件
 
 /**
  * If you don't want to use mock-server
