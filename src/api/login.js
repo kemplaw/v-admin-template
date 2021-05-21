@@ -1,8 +1,11 @@
+import { urlPrefix } from '@/utils'
 import request from '@/utils/request'
+
+const prefix = urlPrefix('user', true)
 
 export function login(data) {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: `${prefix}/login`,
     method: 'post',
     data
   })
@@ -10,7 +13,7 @@ export function login(data) {
 
 export function getInfo(token) {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: `${prefix}/info`,
     method: 'get',
     params: { token }
   })
@@ -18,7 +21,7 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
+    url: `${prefix}/logout`,
     method: 'post'
   })
 }

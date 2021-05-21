@@ -2,6 +2,10 @@
  * Created by PanJiaChen on 16/11/18.
  */
 
+export * from './options'
+export * from './types'
+export * from './http-code'
+
 /**
  * Parse the time to string
  * @param {(Object|string|number)} time
@@ -17,8 +21,8 @@ export function parseTime(time, cFormat) {
   if (typeof time === 'object') {
     date = time
   } else {
-    if ((typeof time === 'string')) {
-      if ((/^[0-9]+$/.test(time))) {
+    if (typeof time === 'string') {
+      if (/^[0-9]+$/.test(time)) {
         // support "1548221490638"
         time = parseInt(time)
       } else {
@@ -28,7 +32,7 @@ export function parseTime(time, cFormat) {
       }
     }
 
-    if ((typeof time === 'number') && (time.toString().length === 10)) {
+    if (typeof time === 'number' && time.toString().length === 10) {
       time = time * 1000
     }
     date = new Date(time)
@@ -45,7 +49,9 @@ export function parseTime(time, cFormat) {
   const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
     const value = formatObj[key]
     // Note: getDay() returns 0 on Sunday
-    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value ] }
+    if (key === 'a') {
+      return ['日', '一', '二', '三', '四', '五', '六'][value]
+    }
     return value.toString().padStart(2, '0')
   })
   return time_str
@@ -114,4 +120,18 @@ export function param2Obj(url) {
     }
   })
   return obj
+}
+
+/**
+ * @description: url 前缀生成器
+ * @param {string} moduleName 模块名
+ * @param {string} isMock 是否mock
+ * @return {string}
+ */
+export const urlPrefix = (moduleName = '', isMock = false) => {
+  const mockPrefix = isMock ? '/mock' : ''
+
+  return process.env.NODE_ENV === 'development'
+    ? `${mockPrefix}/${moduleName}`
+    : moduleName
 }

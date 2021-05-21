@@ -1,8 +1,41 @@
 # v-admin-template
 
-继承自 vue-admin-template，加入了一些自己的元素
+继承自 vue-admin-template（基于 Vue 2.6），加入了一些自己的元素
 
-目录结构
+### 支持 Composition-API
+
+[如何使用，请参考 Vue 3 官方文档](https://v3.cn.vuejs.org/guide/composition-api-introduction.html#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%84%E5%90%88%E5%BC%8F-api)
+
+### 使用 mock-server
+
+基于 [koa.js](https://github.com/koajs/koa) + [Mock.js](http://mockjs.com/)
+
+在你需要 mock 的 api 前使用 mock 前缀即可，如下
+
+```javascript
+export function login(data) {
+  return request({
+    url: '/mock/user/login',
+    method: 'post',
+    data
+  })
+}
+
+
+// 可通过这个简易的 prefix 工具函数添加前缀
+const prefix = urlPrefix('user', true) // true 表示添加mock前缀
+
+export function login(data) {
+  return request({
+    url: `${prefix}/login`,
+    method: 'post',
+    data
+  })
+}
+```
+
+
+### 目录结构
 
 ```
 ├── build                      # 构建相关
@@ -40,7 +73,8 @@
 └── package.json               # package.json
 ```
 
-功能 TODO
+
+### TODO
 
 - [ ] 根据路由自动生成页面文件结构
 - [ ] 根据 openAPI doc 自动生成 API

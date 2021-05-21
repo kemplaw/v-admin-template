@@ -1,25 +1,18 @@
-/**
- * @param {string} url
- * @returns {Object}
- */
-function param2Obj(url) {
-  const search = decodeURIComponent(url.split('?')[1]).replace(/\+/g, ' ')
-  if (!search) {
-    return {}
+function errRes(data = null) {
+  return {
+    code: 500,
+    data: null
   }
-  const obj = {}
-  const searchArr = search.split('&')
-  searchArr.forEach(v => {
-    const index = v.indexOf('=')
-    if (index !== -1) {
-      const name = v.substring(0, index)
-      const val = v.substring(index + 1, v.length)
-      obj[name] = val
-    }
-  })
-  return obj
+}
+
+function succRes(data = null) {
+  return {
+    code: 200,
+    data
+  }
 }
 
 module.exports = {
-  param2Obj
+  errRes,
+  succRes
 }
